@@ -1,330 +1,416 @@
-# Airbnb-NYC-Price-Prediction
-Predicting NYC Airbnb prices using Linear Regression, Random Forest &amp; Gradient Boosting. EDA revealed location &amp; room type drive pricing. Models captured non-linear relationships, with Random Forest performing best (R²=0.628). Data cleaning, feature engineering, and model evaluation included.
+# Airbnb Price Prediction in New York City
 
-
-# 🏠 Airbnb Price Prediction in New York City
-
-This project focuses on predicting Airbnb listing prices in New York City using Machine Learning techniques. The workflow covers data cleaning, feature engineering, exploratory data analysis (EDA), preprocessing, model building, and evaluation using multiple regression algorithms.
-
-The goal of the project is to understand the major factors influencing Airbnb pricing and build predictive models capable of estimating listing prices accurately.
+Predicting Airbnb listing prices in New York City using Machine Learning, Feature Engineering, and Exploratory Data Analysis (EDA).
 
 ---
 
-# 📌 Project Overview
+## 📌 Project Overview
 
-Airbnb prices are influenced by several factors such as:
-
-- Location
-- Room type
-- Availability
-- Review activity
-- Host listing count
-- Geographic coordinates
-
-In this project, I explored these relationships and trained different machine learning models to predict listing prices.
-
-The workflow includes:
-
-- Data Cleaning
-- Missing Value Handling
-- Feature Engineering
-- Exploratory Data Analysis (EDA)
-- Outlier Treatment
-- Log Transformation
-- Model Training & Evaluation
-- Performance Comparison
-
----
-
-# 📂 Dataset Information
-
-The dataset contains Airbnb listings in New York City with features such as:
-
-| Feature | Description |
-|---|---|
-| neighbourhood_group | Borough of the listing |
-| neighbourhood | Specific neighborhood |
-| latitude / longitude | Geographic coordinates |
-| room_type | Entire home, private room, shared room |
-| price | Listing price |
-| minimum_nights | Minimum nights required |
-| number_of_reviews | Total reviews |
-| reviews_per_month | Average monthly reviews |
-| availability_365 | Availability throughout the year |
-| calculated_host_listings_count | Number of listings owned by host |
-
----
-
-# 🧹 Data Cleaning & Preprocessing
-
-## Missing Values
-
-The following missing values were identified:
-
-| Column | Missing Values |
-|---|---|
-| last_review | 10,052 |
-| reviews_per_month | 10,052 |
-| host_name | 21 |
-| name | 16 |
-
-### Handling Strategy
-
-- Removed unnecessary columns:
-  - `id`
-  - `name`
-  - `host_id`
-  - `host_name`
-
-- Missing values in `reviews_per_month` were filled with `0` because all missing rows had:
-  - `number_of_reviews = 0`
-
-- Converted `last_review` into datetime format and extracted:
-  - `days_since_last_review`
-  - `last_review_year`
-  - `last_review_month`
-
-- Dropped the original `last_review` column after feature extraction.
-
----
-
-# ⚙️ Feature Engineering
-
-Additional features created:
-
-| Feature | Description |
-|---|---|
-| days_since_last_review | Number of days since latest review |
-| last_review_year | Review year |
-| last_review_month | Review month |
-
----
-
-# 📊 Exploratory Data Analysis (EDA)
-
-## 1️⃣ Price Distribution
-
-To reduce the impact of extreme outliers:
-
-- Prices were capped at the 99th percentile
-- A log transformation was applied
-
-This helped reduce skewness and improve model learning.
-
-### 📷 Original vs Capped Price Distribution
-
-![Original vs Capped Price Distribution](images/price_distribution.png)
-
-### 📷 Log Transformed Price Distribution
-
-![Log Price Distribution](images/log_price_distribution.png)
-
----
-
-## 2️⃣ Room Type vs Price
-
-The analysis showed:
-
-- Entire homes/apartments are the most expensive
-- Private rooms are moderately priced
-- Shared rooms are the cheapest
-
-### 📷 Boxplot of Price by Room Type
-
-![Room Type Boxplot](images/room_type_boxplot.png)
-
----
-
-## 3️⃣ Neighborhood Price Analysis
-
-Average prices by borough:
-
-| Borough | Mean Price |
-|---|---|
-| Manhattan | \$182.95 |
-| Brooklyn | \$119.37 |
-| Staten Island | \$101.80 |
-| Queens | \$96.10 |
-| Bronx | \$85.75 |
-
-Manhattan listings are significantly more expensive than other boroughs.
-
----
-
-## 4️⃣ Reviews vs Price
-
-There was no strong relationship between:
-- Number of reviews
-- Listing price
-
-### 📷 Price vs Number of Reviews
-
-![Price vs Reviews](images/price_vs_reviews.png)
-
----
-
-## 5️⃣ Geographic Price Distribution
-
-Geographic visualization revealed:
-
-- Manhattan contains most high-priced listings
-- Outer boroughs generally contain lower-priced listings
-
-### 📷 Spatial Listing Distribution
-
-![Spatial Distribution](images/spatial_distribution.png)
-
----
-
-## 6️⃣ Correlation Analysis
-
-Correlation analysis showed weak linear relationships between price and most numerical variables, suggesting that:
-
-- Non-linear models may perform better
-- Categorical & spatial features are highly important
-
-### 📷 Correlation Heatmap
-
-![Correlation Heatmap](images/correlation_heatmap.png)
-
----
-
-# 🤖 Machine Learning Models
-
-The target variable used for prediction was:
-
-```python
-log_price = log(price_capped + 1)
-````
-
----
-
-# 🔧 Preprocessing Pipeline
-
-The preprocessing pipeline included:
-
-### Numerical Features
-
-* Median Imputation
-
-### Categorical Features
-
-* Missing value replacement using `"UNKNOWN"`
-* One-Hot Encoding
-
----
-
-# 📈 Models Used
-
-## 1️⃣ Linear Regression
-
-### Results
-
-| Metric   | Score  |
-| -------- | ------ |
-| MAE      | 0.3285 |
-| RMSE     | 0.4425 |
-| R² Score | 0.5672 |
-
-### Interpretation
-
-Linear Regression served as a solid baseline model but struggled to capture complex non-linear pricing patterns.
-
----
-
-## 2️⃣ Random Forest Regressor ⭐ Best Model
-
-### Results
-
-| Metric   | Score  |
-| -------- | ------ |
-| MAE      | 0.2993 |
-| RMSE     | 0.4102 |
-| R² Score | 0.6281 |
-
-### Interpretation
-
-Random Forest achieved the best overall performance by capturing:
-
-* Non-linear relationships
-* Feature interactions
-* Spatial pricing behavior
-
----
-
-## 3️⃣ Gradient Boosting Regressor
-
-### Results
-
-| Metric   | Score  |
-| -------- | ------ |
-| MAE      | 0.3104 |
-| RMSE     | 0.4206 |
-| R² Score | 0.6091 |
-
-### Interpretation
-
-Gradient Boosting also performed well but slightly below Random Forest.
-
----
-
-# 🏆 Final Model Comparison
-
-| Model             | MAE    | RMSE   | R² Score |
-| ----------------- | ------ | ------ | -------- |
-| Linear Regression | 0.3285 | 0.4425 | 0.5672   |
-| Random Forest     | 0.2993 | 0.4102 | 0.6281   |
-| Gradient Boosting | 0.3104 | 0.4206 | 0.6091   |
-
----
-
-# ✅ Conclusion
-
-This project demonstrates that Airbnb pricing is influenced by a combination of:
+This project focuses on building regression models to predict Airbnb listing prices in New York City based on listing characteristics such as:
 
 * Location
 * Room type
 * Availability
-* Host activity
-* Spatial factors
+* Review activity
+* Host listing count
+* Geographic coordinates
 
-Key findings include:
+The workflow includes:
 
-* Manhattan listings command the highest prices
-* Entire homes are significantly more expensive
-* Numerical review features alone are weak predictors
-* Non-linear machine learning models outperform linear regression
+* Data Cleaning
+* Missing Value Handling
+* Feature Engineering
+* Exploratory Data Analysis (EDA)
+* Outlier Treatment
+* Log Transformation
+* Machine Learning Modeling
+* Model Evaluation & Comparison
 
-Among all tested models, **Random Forest Regressor** achieved the best performance.
+The final models compared include:
+
+* Linear Regression
+* Random Forest Regressor
+* Gradient Boosting Regressor
+
+---
+
+# 📂 Dataset
+
+The dataset contains Airbnb listing information such as:
+
+| Feature              | Description                      |
+| -------------------- | -------------------------------- |
+| neighbourhood_group  | Borough in NYC                   |
+| neighbourhood        | Specific area                    |
+| room_type            | Entire home/private/shared       |
+| price                | Listing price                    |
+| minimum_nights       | Minimum booking nights           |
+| number_of_reviews    | Total reviews                    |
+| reviews_per_month    | Monthly review activity          |
+| availability_365     | Availability throughout the year |
+| latitude & longitude | Geographic coordinates           |
 
 ---
 
 # 🛠️ Technologies Used
 
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Scikit-learn
-* Google Colab
+## Libraries
+
+```python
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+```
+
+## Machine Learning Models
+
+* Linear Regression
+* Random Forest Regressor
+* Gradient Boosting Regressor
 
 ---
+
+# 🧹 Data Cleaning & Preprocessing
+
+## 1. Removed Unnecessary Columns
+
+The following columns were removed because they do not contribute meaningfully to prediction:
+
+```python
+['id', 'name', 'host_id', 'host_name']
+```
+
+---
+
+## 2. Missing Value Investigation
+
+### Missing Values Found
+
+| Column            | Missing Values |
+| ----------------- | -------------- |
+| last_review       | 10,052         |
+| reviews_per_month | 10,052         |
+| host_name         | 21             |
+| name              | 16             |
+
+### Key Observation
+
+After investigation, all rows with missing `reviews_per_month` had:
+
+```python
+number_of_reviews == 0
+```
+
+This indicated that missing values were logically caused by listings having no reviews.
+
+### Thought Process / Hiccup
+
+Instead of dropping over 10,000 rows (~21% of the dataset), I investigated the pattern behind the missing values first.
+
+This was an important analytical step because blindly removing rows would have caused unnecessary data loss.
+
+I verified the hypothesis using:
+
+```python
+(df['reviews_per_month'].isnull() == (df['number_of_reviews'] == 0)).all()
+```
+
+Which returned:
+
+```python
+True
+```
+
+This confirmed that imputing missing values with `0` was logically correct.
+
+---
+
+## 3. Feature Engineering
+
+### Date Features Extracted
+
+The `last_review` column was converted to datetime and transformed into useful numerical features:
+
+* `days_since_last_review`
+* `last_review_year`
+* `last_review_month`
+
+### Why This Was Done
+
+Machine learning models cannot directly interpret raw date strings effectively.
+
+Transforming dates into numerical representations helps models learn temporal patterns more efficiently.
+
+---
+
+# 📊 Exploratory Data Analysis (EDA)
+
+---
+
+## Price Distribution
+
+Airbnb prices were heavily right-skewed due to extremely expensive listings.
+
+To improve model stability:
+
+* Prices were capped at the 99th percentile
+* Log transformation was applied
+
+### Why?
+
+Without treatment, luxury listings would dominate model learning and distort predictions.
+
+---
+
+## 📷 Original vs Capped Price Distribution
+
+```markdown
+![Original vs Capped Price Distribution](images/price_distribution.png)
+```
+
+### Insight
+
+The capped distribution removes the extreme long tail while preserving the overall structure of pricing behavior.
+
+---
+
+## 📷 Log-Transformed Price Distribution
+
+```markdown
+![Log Price Distribution](images/log_price_distribution.png)
+```
+
+### Insight
+
+Log transformation reduced skewness and created a more normal-like distribution, improving regression performance.
+
+---
+
+# 🏠 Room Type vs Price
+
+```markdown
+![Room Type Boxplot](images/room_type_boxplot.png)
+```
+
+### Key Findings
+
+* Entire homes/apartments had the highest median prices
+* Shared rooms were the cheapest
+* Private rooms occupied the middle range
+
+### Observation
+
+Room type emerged as one of the strongest predictors of Airbnb pricing.
+
+---
+
+# 🗺️ Geographic Price Distribution
+
+```markdown
+![Spatial Scatter Plot](images/location_scatter.png)
+```
+
+### Key Findings
+
+* Manhattan contained the densest cluster of expensive listings
+* Outer boroughs generally showed lower pricing
+* Larger markers represented higher-priced listings
+
+### Thought Process
+
+Instead of only analyzing borough names, I wanted to visually inspect whether geographic coordinates themselves encoded pricing behavior.
+
+This helped confirm that spatial location is a major pricing driver.
+
+---
+
+# 📈 Correlation Heatmap
+
+```markdown
+![Correlation Heatmap](images/correlation_heatmap.png)
+```
+
+### Key Findings
+
+Most numerical variables had weak linear correlations with price.
+
+Examples:
+
+| Feature           | Correlation with Price |
+| ----------------- | ---------------------- |
+| number_of_reviews | -0.06                  |
+| reviews_per_month | -0.06                  |
+| availability_365  | +0.12                  |
+
+### Interpretation
+
+This suggested that Airbnb pricing depends more on:
+
+* Nonlinear relationships
+* Spatial effects
+* Categorical interactions
+
+This justified trying ensemble-based machine learning models.
+
+---
+
+# 🤖 Machine Learning Models
+
+---
+
+## 1. Linear Regression
+
+### Performance
+
+| Metric | Score  |
+| ------ | ------ |
+| MAE    | 0.3285 |
+| RMSE   | 0.4425 |
+| R²     | 0.5672 |
+
+### Interpretation
+
+Linear Regression served as a strong baseline but struggled to capture nonlinear pricing behavior.
+
+---
+
+## 2. Random Forest Regressor
+
+### Performance
+
+| Metric | Score  |
+| ------ | ------ |
+| MAE    | 0.2993 |
+| RMSE   | 0.4102 |
+| R²     | 0.6281 |
+
+### Interpretation
+
+Random Forest performed best overall.
+
+It captured:
+
+* nonlinear feature interactions
+* spatial relationships
+* complex pricing patterns
+
+better than Linear Regression.
+
+---
+
+## 3. Gradient Boosting Regressor
+
+### Performance
+
+| Metric | Score  |
+| ------ | ------ |
+| MAE    | 0.3104 |
+| RMSE   | 0.4206 |
+| R²     | 0.6091 |
+
+### Interpretation
+
+Gradient Boosting improved upon Linear Regression but slightly underperformed Random Forest on this dataset.
+
+---
+
+# 🏆 Final Model Comparison
+
+| Model             | MAE        | RMSE       | R²         |
+| ----------------- | ---------- | ---------- | ---------- |
+| Linear Regression | 0.3285     | 0.4425     | 0.5672     |
+| Random Forest     | **0.2993** | **0.4102** | **0.6281** |
+| Gradient Boosting | 0.3104     | 0.4206     | 0.6091     |
+
+---
+
+# 💡 Key Learnings
+
+## What Worked Well
+
+* Investigating missing values before imputation
+* Outlier capping improved model stability
+* Log transformation improved prediction performance
+* Ensemble models captured nonlinear relationships effectively
+
+---
+
+## Challenges & Thought Process
+
+### Handling Missing Values
+
+One major challenge was deciding how to treat over 10,000 missing values in `reviews_per_month` and `last_review`.
+
+Instead of immediately removing rows, I explored *why* the values were missing and discovered the missingness was systematic rather than random.
+
+This analytical step preserved a significant portion of the dataset.
+
+---
+
+### Skewed Target Variable
+
+The `price` variable contained extreme luxury listings reaching up to `$10,000`.
+
+This created severe skewness and risked biasing the model.
+
+To solve this:
+
+* I capped prices at the 99th percentile
+* Applied log transformation
+
+This significantly stabilized the target distribution.
+
+---
+
+### Weak Linear Correlations
+
+The heatmap revealed weak linear relationships between numeric variables and price.
+
+This suggested:
+
+* linear regression alone would be insufficient
+* nonlinear models would likely perform better
+
+This insight guided the transition toward Random Forest and Gradient Boosting models.
+
+---
+
 # 🚀 Future Improvements
 
-Possible future enhancements include:
+Potential enhancements include:
 
-* Hyperparameter tuning
+* Hyperparameter tuning using GridSearchCV or RandomizedSearchCV
 * XGBoost or LightGBM implementation
-* Advanced geospatial feature engineering
+* Geospatial clustering
 * NLP analysis on listing descriptions
-* Deployment as a web application
+* Feature importance visualization
+* Cross-validation for more robust evaluation
+
+---
+
+# 📌 Conclusion
+
+This project demonstrates how thoughtful preprocessing, feature engineering, and model selection can improve predictive performance in real-world pricing problems.
+
+The strongest insight from this analysis was that Airbnb prices are driven less by simple numeric counts and more by complex interactions between:
+
+* location
+* room type
+* availability
+* host activity
+* spatial patterns
+
+Among all tested models, Random Forest achieved the best overall performance, confirming the importance of nonlinear modeling approaches for Airbnb price prediction.
 
 ---
 
 # 👩‍💻 Author
 
-Latifah Usaini Bashir
+**Latifah Usaini Bashir**
+
+* Data Analyst Enthusiast
 
 
 
