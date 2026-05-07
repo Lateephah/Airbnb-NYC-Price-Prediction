@@ -310,26 +310,6 @@ Among all tested models, **Random Forest Regressor** achieved the best performan
 * Google Colab
 
 ---
-
-# 📁 Project Structure
-
-```bash
-├── data/
-│   └── airbnb.csv
-├── images/
-│   ├── price_distribution.png
-│   ├── log_price_distribution.png
-│   ├── room_type_boxplot.png
-│   ├── price_vs_reviews.png
-│   ├── spatial_distribution.png
-│   └── correlation_heatmap.png
-├── notebook/
-│   └── airbnb_price_prediction.ipynb
-├── README.md
-```
-
----
-
 # 🚀 Future Improvements
 
 Possible future enhancements include:
@@ -347,5 +327,4 @@ Possible future enhancements include:
 Latifah Usaini Bashir
 
 
-````
 
