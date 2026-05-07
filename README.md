@@ -1,6 +1,6 @@
 # Airbnb Price Prediction in New York City
 
-Predicting Airbnb listing prices in New York City using Machine Learning, Feature Engineering, and Exploratory Data Analysis (EDA).
+Predicting NYC Airbnb prices using Linear Regression, Random Forest &amp; Gradient Boosting. EDA revealed location &amp; room type drive pricing. Models captured non-linear relationships, with Random Forest performing best (R²=0.628). Data cleaning, feature engineering, and model evaluation included.
 
 ---
 
@@ -51,19 +51,6 @@ The dataset contains Airbnb listing information such as:
 | latitude & longitude | Geographic coordinates           |
 
 ---
-
-# 🛠️ Technologies Used
-
-## Libraries
-
-```python
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-```
-
 ## Machine Learning Models
 
 * Linear Regression
