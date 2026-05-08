@@ -165,9 +165,7 @@ So, instead of only analyzing borough names, I wanted to visually inspect whethe
 
 # 📈 Correlation Heatmap
 
-```markdown
 ![Correlation Heatmap](images/correlation_heatmap.png)
-```
 
 ### Key Findings
 
@@ -181,8 +179,6 @@ Examples:
 | reviews_per_month | -0.06                  |
 | availability_365  | +0.12                  |
 
-### Interpretation
-
 This suggested that Airbnb pricing depends more on:
 
 * Nonlinear relationships
@@ -194,8 +190,6 @@ This justified trying ensemble-based machine learning models.
 ---
 
 # 🤖 Machine Learning Models
-
----
 
 ## 1. Linear Regression
 
@@ -274,14 +268,13 @@ Gradient Boosting improved upon Linear Regression but slightly underperformed Ra
 
 ---
 
-## Challenges & Thought Process
+## Challenges
 
 ### Handling Missing Values
 
 One major challenge was deciding how to treat over 10,000 missing values in `reviews_per_month` and `last_review`.
 
 Instead of immediately removing rows, I explored *why* the values were missing and discovered the missingness was systematic rather than random.
-
 This analytical step preserved a significant portion of the dataset.
 
 ---
@@ -289,7 +282,6 @@ This analytical step preserved a significant portion of the dataset.
 ### Skewed Target Variable
 
 The `price` variable contained extreme luxury listings reaching up to `$10,000`.
-
 This created severe skewness and risked biasing the model.
 
 To solve this:
