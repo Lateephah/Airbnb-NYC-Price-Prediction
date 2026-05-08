@@ -338,8 +338,7 @@ Among all tested models, Random Forest achieved the best overall performance, co
 #  Author
 
 **Latifah Usaini Bashir**
-
-* Data Analyst Enthusiast
+ Data Analyst Enthusiast
 
 
 
