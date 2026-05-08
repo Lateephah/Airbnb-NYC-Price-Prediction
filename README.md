@@ -4,7 +4,7 @@ Predicting NYC Airbnb prices using Linear Regression, Random Forest &amp; Gradie
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This project focuses on building regression models to predict Airbnb listing prices in New York City based on listing characteristics such as:
 
@@ -189,7 +189,7 @@ This justified trying ensemble-based machine learning models.
 
 ---
 
-# 🤖 Machine Learning Models
+#  Machine Learning Models
 
 ## 1. Linear Regression
 
@@ -247,7 +247,7 @@ Gradient Boosting improved upon Linear Regression but slightly underperformed Ra
 
 ---
 
-# 🏆 Final Model Comparison
+# Final Model Comparison
 
 | Model             | MAE        | RMSE       | R²         |
 | ----------------- | ---------- | ---------- | ---------- |
@@ -257,7 +257,7 @@ Gradient Boosting improved upon Linear Regression but slightly underperformed Ra
 
 ---
 
-# 💡 Key Learnings
+# Key Learnings
 
 ## What Worked Well
 
@@ -306,7 +306,7 @@ This insight guided the transition toward Random Forest and Gradient Boosting mo
 
 ---
 
-# 🚀 Future Improvements
+# Future Improvements
 
 Potential enhancements include:
 
@@ -335,7 +335,7 @@ Among all tested models, Random Forest achieved the best overall performance, co
 
 ---
 
-# 👩‍💻 Author
+#  Author
 
 **Latifah Usaini Bashir**
 
