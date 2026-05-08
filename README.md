@@ -114,9 +114,7 @@ Airbnb prices were heavily right-skewed due to extremely expensive listings, so 
 
 ##  Original vs Capped Price Distribution
 
-```markdown
 ![Original vs Capped Price Distribution](images/price_distribution.png)
-```
 
 ### Insight
 
