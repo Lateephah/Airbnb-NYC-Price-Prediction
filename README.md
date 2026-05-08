@@ -73,7 +73,7 @@ The following columns were removed because they do not contribute meaningfully t
 
 ## 2. Missing Value Investigation
 
-### Missing Values Found
+The following Features had missing values:
 
 | Column            | Missing Values |
 | ----------------- | -------------- |
@@ -84,33 +84,9 @@ The following columns were removed because they do not contribute meaningfully t
 
 ### Key Observation
 
-After investigation, all rows with missing `reviews_per_month` had:
+After investigation, all rows with missing `reviews_per_month` had zero number of `number_of_reviews`  rows and this might indicate that missing values were logically caused by listings having no reviews. So instead of dropping over 10,000 rows (~21% of the dataset), I investigated the pattern behind the missing values first. This was an important analytical step because blindly removing rows would have caused unnecessary data loss.
 
-```python
-number_of_reviews == 0
-```
-
-This indicated that missing values were logically caused by listings having no reviews.
-
-### Thought Process / Hiccup
-
-Instead of dropping over 10,000 rows (~21% of the dataset), I investigated the pattern behind the missing values first.
-
-This was an important analytical step because blindly removing rows would have caused unnecessary data loss.
-
-I verified the hypothesis using:
-
-```python
-(df['reviews_per_month'].isnull() == (df['number_of_reviews'] == 0)).all()
-```
-
-Which returned:
-
-```python
-True
-```
-
-This confirmed that imputing missing values with `0` was logically correct.
+I verified the hypothesis using by checking if all the columns with `reviews_per_month` and `number_of_reviews` which are empty equal to null and it turned out to be true. Hence, this confirmed that imputing missing values with `0` was logically correct.
 
 ---
 
@@ -124,34 +100,19 @@ The `last_review` column was converted to datetime and transformed into useful n
 * `last_review_year`
 * `last_review_month`
 
-### Why This Was Done
-
-Machine learning models cannot directly interpret raw date strings effectively.
-
-Transforming dates into numerical representations helps models learn temporal patterns more efficiently.
+This Was done because machine learning models cannot directly interpret raw date strings effectively so transforming dates into numerical representations was the right step to do because it helps models learn temporal patterns more efficiently.
 
 ---
 
 # 📊 Exploratory Data Analysis (EDA)
 
----
-
 ## Price Distribution
 
-Airbnb prices were heavily right-skewed due to extremely expensive listings.
-
-To improve model stability:
-
-* Prices were capped at the 99th percentile
-* Log transformation was applied
-
-### Why?
-
-Without treatment, luxury listings would dominate model learning and distort predictions.
+Airbnb prices were heavily right-skewed due to extremely expensive listings, so to improve model stability, I capped Prices  at the 99th percentile and applied Log transformation. Because Without these special treatment, luxury listings would dominate model learning and distort predictions.
 
 ---
 
-## 📷 Original vs Capped Price Distribution
+##  Original vs Capped Price Distribution
 
 ```markdown
 ![Original vs Capped Price Distribution](images/price_distribution.png)
