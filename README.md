@@ -122,11 +122,9 @@ The capped distribution removes the extreme long tail while preserving the overa
 
 ---
 
-## 📷 Log-Transformed Price Distribution
+## Log-Transformed Price Distribution
 
-```markdown
 ![Log Price Distribution](images/log_price_distribution.png)
-```
 
 ### Insight
 
@@ -136,9 +134,7 @@ Log transformation reduced skewness and created a more normal-like distribution,
 
 # 🏠 Room Type vs Price
 
-```markdown
 ![Room Type Boxplot](images/room_type_boxplot.png)
-```
 
 ### Key Findings
 
@@ -154,9 +150,7 @@ Room type emerged as one of the strongest predictors of Airbnb pricing.
 
 # 🗺️ Geographic Price Distribution
 
-```markdown
 ![Spatial Scatter Plot](images/location_scatter.png)
-```
 
 ### Key Findings
 
@@ -164,11 +158,8 @@ Room type emerged as one of the strongest predictors of Airbnb pricing.
 * Outer boroughs generally showed lower pricing
 * Larger markers represented higher-priced listings
 
-### Thought Process
 
-Instead of only analyzing borough names, I wanted to visually inspect whether geographic coordinates themselves encoded pricing behavior.
-
-This helped confirm that spatial location is a major pricing driver.
+So, instead of only analyzing borough names, I wanted to visually inspect whether geographic coordinates themselves encoded pricing behavior. This helped me confirmed that spatial location is a major pricing driver.
 
 ---
 
